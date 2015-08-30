@@ -12,35 +12,34 @@ public class Solution {
 		      }
 		  }
 	  
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-        // write your code here
-    	if(preorder.length != inorder.length) {
-    		return null;
-    	}
-    	return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
-    }
-    
-    public TreeNode build(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
-    	if(inStart > inEnd || preStart >= preorder.length) {
-    		return null;
-    	}
-    	System.out.println(preStart);
-    	TreeNode root = new TreeNode(preorder[preStart]);
-    	int position = findPosition(inorder, inStart, inEnd, preorder[preStart]);
-    	root.left = build(preorder, preStart + 1, preStart + 1 + position - inStart, inorder, inStart, position - 1);
-    	root.right = build(preorder, preStart + 2 + position - inStart, preEnd, inorder, position + 1, inEnd);
-    	return root;
-    }
-    
-    public int findPosition(int[] inorder, int inStart, int inEnd, int target) {
-    	for(int i = inStart; i <= inEnd; ++i) {
-    		if(inorder[i] == target) {
-    			return i;
-    		}
-    	}
-    	
-    	return -1;
-    }
+	    public TreeNode buildTree(int[] inorder, int[] postorder) {
+	        // write your code here
+	    	if(postorder.length != inorder.length) {
+	    		return null;
+	    	}
+	    	return build(postorder, 0, postorder.length - 1, inorder, 0, inorder.length - 1);
+	    }
+	    
+	    public TreeNode build(int[] postorder, int postStart, int postEnd, int[] inorder, int inStart, int inEnd) {
+	    	if(inStart > inEnd || postEnd < postStart || postEnd >= postorder.length) {
+	    		return null;
+	    	}
+	    	TreeNode root = new TreeNode(postorder[postEnd]);
+	    	int position = findPosition(inorder, inStart, inEnd, postorder[postEnd]);
+	    	root.right = build(postorder, postEnd - (inEnd - position) + 1, postEnd - 1, inorder, inStart, position - 1);
+	    	root.left = build(postorder, postStart, postEnd - position + inStart, inorder, position + 1, inEnd);
+	    	return root;
+	    }
+	    
+	    public int findPosition(int[] postorder, int inStart, int inEnd, int target) {
+	    	for(int i = inStart; i <= inEnd; ++i) {
+	    		if(postorder[i] == target) {
+	    			return i;
+	    		}
+	    	}
+	    	
+	    	return -1;
+	    }
     public static void main(String[] args) {
     	Solution temp = new Solution();
     	int[] a = {1, 2};
