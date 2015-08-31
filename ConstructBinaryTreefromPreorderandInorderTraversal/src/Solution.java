@@ -27,7 +27,7 @@ public class Solution {
 	    	TreeNode root = new TreeNode(postorder[postEnd]);
 	    	int position = findPosition(inorder, inStart, inEnd, postorder[postEnd]);
 	    	root.right = build(postorder, postEnd - (inEnd - position) + 1, postEnd - 1, inorder, inStart, position - 1);
-	    	root.left = build(postorder, postStart, postEnd - position + inStart, inorder, position + 1, inEnd);
+	    	root.left = build(postorder, postStart, postEnd - (inEnd - position), inorder, position + 1, inEnd);
 	    	return root;
 	    }
 	    
