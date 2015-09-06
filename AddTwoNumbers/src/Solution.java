@@ -70,6 +70,7 @@ public class Solution {
     		int val = l1.val + l2.val + add ;
     		l1.val = val % 10;
     		add = val / 10;
+    		l1 = l1.next;
     		while(l1.next == null) {
     			if(add == 0) {
     				break;
