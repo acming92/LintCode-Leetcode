@@ -16,7 +16,7 @@ public class Solution {
 		ListNode dummyNode = new ListNode(0);
 		dummyNode.next = head;
 		ListNode fast = dummyNode, slow = dummyNode;
-		while(slow != null && fast.next != null) {
+		while(fast != null && fast.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
 		}
@@ -65,8 +65,8 @@ public class Solution {
 	
     public ListNode sortList(ListNode head) {  
         // write your code here
-    	if(head == null) {
-    		return null;
+    	if(head == null || head.next == null) {
+    		return head;
     	}
     	
     	ListNode mid = findMid(head);
